@@ -1,0 +1,20 @@
+{
+  "name": "sample-electron-app",
+  "version": "0.0.0",
+  "description": "sample electron application to learn electron architecture and functionalities",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "electron",
+    "node",
+    "sample"
+  ],
+  "author": "randilfernando <randil.fernando@outlook.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^1.8.3"
+  }
+}

@@ -1,0 +1,46 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Check angular.js conflicts with angular2</title>
+
+    <!-- angular 1.4 -->
+    <script src="src/assets/js/vendor.bundle.js"></script>
+
+    <!-- angular 2 dependencies -->
+    <script src="node_modules/es6-shim/es6-shim.js"></script>
+    <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="node_modules/angular2/es6/dev/src/testing/shims_for_IE.js"></script>
+    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+    <script src="node_modules/rxjs/bundles/Rx.js"></script>
+    <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+
+    <!-- anguat app.js -->
+    <script src="src/assets/js/src.bundle-min.js"></script>
+
+    <!-- angular upgrad.js -->
+    <script src="node_modules/angular2/bundles/upgrade.dev.js"></script>
+
+    <!--SystemJS module loader-->
+    <script>
+        System.config({
+            packages: {
+                src: {
+                    format: 'register',
+                    defaultExtension: 'js'
+                }
+            }
+        });
+        System.import('src/app/boot')
+            .then(null, console.error.bind(console));
+    </script>
+
+</head>
+
+<body>
+    <h1>Timeline App</h1>
+    <div ng-view></div>
+</body>
+
+</html>
