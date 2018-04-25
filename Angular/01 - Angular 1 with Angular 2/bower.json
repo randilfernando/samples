@@ -1,0 +1,29 @@
+{
+  "name": "angular2with1",
+  "description": "Sample application to check conflicts when using angular 1 along with angular 2",
+  "main": "app/app.module.js",
+  "authors": [
+    "randil.fernando@outlook.com"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "angulajs",
+    "angular2",
+    "gulp",
+    "npm"
+  ],
+  "homepage": "https://github.com/randilfernando/Angular2With1",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.4",
+    "angular-route": "^1.6.4",
+    "angular-animate": "^1.6.4"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "name": "angular2with1",
+  "version": "1.0.0",
+  "description": "Sample application to check conflicts when using angular 1 along with angular 2",
+  "main": "app/app.module.js",
+  "dependencies": {
+    "angular2": "2.0.0-beta.7",
+    "systemjs": "0.19.22",
+    "es6-promise": "^3.0.2",
+    "es6-shim": "^0.33.3",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.2",
+    "zone.js": "0.5.15"
+  },
+  "devDependencies": {
+    "browserify": "^14.4.0",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-minify": "^1.0.0",
+    "gulp-sourcemaps": "^2.6.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "typescript": "^1.8.2",
+    "typings":"^0.6.8",
+    "concurrently": "^2.0.0",
+    "lite-server": "^2.1.0"
+  },
+  "scripts": {
+    "start": "concurrently \"npm run tsc:w\" \"npm run lite\" ",    
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "lite": "lite-server",
+    "typings": "typings",
+    "postinstall": "typings install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/randilfernando/Angular2With1.git"
+  },
+  "keywords": [
+    "angulajs",
+    "angular2",
+    "gulp",
+    "npm"
+  ],
+  "author": "randil.fernando@outlook.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/randilfernando/Angular2With1/issues"
+  },
+  "homepage": "https://github.com/randilfernando/Angular2With1#readme"
+}

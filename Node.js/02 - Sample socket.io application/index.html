@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Lan Chat</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+    <script src="/jquery/dist/jquery.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <img alt="Brand" style="max-height: 50px" class="img-responsive" src="/logo.png">
+                    </a>
+                </div>
+                <h1>Chat</h1>
+            </div>
+        </nav>
+    </header>
+    <div class="row well">
+        <form id="form" id="chat_form">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="input-group">
+                    <input id="chat_name" type="text" class="form-control" placeholder="Enter your name here...">
+                </div>
+                <br>
+                <div class="input-group">
+                    <input id="chat_input" type="text" class="form-control" placeholder="Chat here...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">Send!</button>
+                    </span>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <div id="future" class="panel-body">
+
+        </div>
+    </div>
+
+    <script>
+        var socket = io();
+        socket.on('connect', function (data) {
+            socket.emit('join', 'Client connected!');
+        });
+        socket.on('broad', function (data) {
+            $('#future').append('<div class="row container-fluid">' + data + '</div>');
+        });
+
+        $('form').submit(function (e) {
+            e.preventDefault();
+            var message = $('#chat_name').val() + ': ' + $('#chat_input').val();
+            $('#chat_input').val("");
+            socket.emit('messages', message);
+        });
+    </script>
+</body>
+
+</html>
