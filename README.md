@@ -18,3 +18,5 @@ Samples available
 #### Node.js
 01. Sample RESTAPI application
 02. Sample socket.io application
+#### MicroServices
+01. Microservices with eventual consistency (Spring boot + kafka)
