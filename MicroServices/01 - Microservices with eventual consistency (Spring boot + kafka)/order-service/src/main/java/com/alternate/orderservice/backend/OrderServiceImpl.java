@@ -13,6 +13,9 @@ import java.util.Optional;
 @Service
 public class OrderServiceImpl implements OrderService {
 
+    /**
+     * use to serialize java object into json string
+     */
     private static ObjectMapper objectMapper;
 
     static {

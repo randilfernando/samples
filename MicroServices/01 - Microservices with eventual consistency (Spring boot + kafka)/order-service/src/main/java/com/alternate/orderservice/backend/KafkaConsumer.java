@@ -12,6 +12,9 @@ import java.io.IOException;
 @Service
 public class KafkaConsumer {
 
+    /**
+     * use to serialize java object into json string
+     */
     private static ObjectMapper objectMapper;
 
     static {
@@ -25,8 +28,15 @@ public class KafkaConsumer {
         this.orderService = orderService;
     }
 
+    /**
+     * listen to customer topic
+     */
     @KafkaListener(topics = "customer")
     public void receiveMessage(String message) {
+        /** 
+         * when there is a new message in order topic it will come here
+         * need to extract event from message
+         */
         int pos = message.indexOf('#');
         String eventName = message.substring(0, pos);
         String eventBody = message.substring(pos + 1);
