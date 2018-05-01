@@ -1,17 +1,22 @@
 # Microservices with eventual consistency
 Samples micro services with spring boot and kafka which use eventual consistency.
 
-# How to compile
+# How to setup
 
-## Install and run third party applications
+## Install and configure third party applications
 
-### Install and configure mysql
+### Mysql / MariaDB
 - Install mysql database
 - Create databases for micro services (order_service and customer_service)
 >Note: see application.properties files
 - Add username and password to application.properties files
+```yml
+spring.datasource.url=jdbc:mysql://localhost:3306/{database-name}?autoReconnect=true&useSSL=false
+spring.datasource.username={username}
+spring.datasource.password={password}
+```
 
-### Install and configure apache kafka
+### Apache Kafka
 - Download [apache kafka](https://kafka.apache.org/downloads)
 - Go to kafka installed location
 - Start inbuilt zookeeper
@@ -34,28 +39,33 @@ bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 -
 git clone https://github.com/randilfernando/samples.git
 ```
 - Go to "MicroServices/01 - Microservices with eventual consistency (Spring boot + kafka)" folder
-- Run micro services (go to each project and then run)
+- Run micro services (Run both projects)
 ```
+cd customer-service
+mvn spring-boot:run
+```
+```
+cd order-service
 mvn spring-boot:run
 ```
 
-## Use api
+# Use api
 ## End points available
-- /customers - Add new customer
+- http://localhost:8081/customers - Add new customer
 ```json
 {
   "customerName": "test",
   "creditLimit": 10000
 }
 ```
-- /customers/{id} - Get customer using id
-- /orders - Add new order
+- http://localhost:8081/customers/{id} - Get customer using id
+- http://localhost:8082/orders - Add new order
 ```json
 {
   "customerId": 1,
   "orderTotal": 2000
 }
 ```
-- /orders/{id} - Get order by id
+- http://localhost:8082/orders/{id} - Get order by id
 
 >Note: All the requests must use JSON data type
