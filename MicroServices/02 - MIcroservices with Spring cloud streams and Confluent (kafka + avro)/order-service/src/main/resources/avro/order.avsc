@@ -1,0 +1,11 @@
+{
+  "namespace" : "com.alternate.schemas",
+  "type" : "record",
+  "name" : "Order",
+  "fields" : [
+    {"name":"id","type":"string"},
+    {"name":"customerId", "type":"string"},
+    {"name": "amount", "type": "double"},
+    {"name":"status", "type":"boolean"}
+  ]
+}

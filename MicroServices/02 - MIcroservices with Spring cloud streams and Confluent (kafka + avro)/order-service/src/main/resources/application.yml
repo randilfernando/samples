@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        output:
+          contentType: application/*+avro
+          destination: order-topic
+      schemaRegistryClient:
+        endpoint: http://localhost:8081
+      schema:
+        avro:
+          schema-locations: classpath:avro/order.avsc
+server.port: 4001
