@@ -1,7 +1,6 @@
-package com.alternate.orderservice.backend;
+package com.alternate.customerservice.backend;
 
-import com.alternate.orderservice.domain.events.CustomerCreditReservationFailedEvent;
-import com.alternate.orderservice.domain.events.CustomerCreditReservedEvent;
+import com.alternate.customerservice.domain.events.OrderCreatedEvent;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-public class KafkaConsumer {
+public class OrderEventsConsumer {
 
     /**
      * use to serialize java object into json string
@@ -21,17 +20,17 @@ public class KafkaConsumer {
         objectMapper = new ObjectMapper();
     }
 
-    private OrderService orderService;
+    private CustomerService customerService;
 
     @Autowired
-    public KafkaConsumer(OrderService orderService) {
-        this.orderService = orderService;
+    public OrderEventsConsumer(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
     /**
-     * listen to customer topic
+     * listen to order topic
      */
-    @KafkaListener(topics = "customer")
+    @KafkaListener(topics = "order")
     public void receiveMessage(String message) {
         /** 
          * when there is a new message in order topic it will come here
@@ -42,16 +41,9 @@ public class KafkaConsumer {
         String eventBody = message.substring(pos + 1);
 
         switch (eventName) {
-            case "customer_credit_reserved_event":
+            case "order_created_event":
                 try {
-                    orderService.handleCustomerCreditReservedEvent(objectMapper.readValue(eventBody, CustomerCreditReservedEvent.class));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case "customer_credit_reservation_failed_event":
-                try {
-                    orderService.handleCustomerCreditReservationFailedEvent(objectMapper.readValue(eventBody, CustomerCreditReservationFailedEvent.class));
+                    customerService.handleOrderCreatedEvent(objectMapper.readValue(eventBody, OrderCreatedEvent.class));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
