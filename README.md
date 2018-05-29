@@ -20,4 +20,4 @@ Samples available
 02. [Sample socket.io application](https://github.com/randilfernando/samples/tree/master/Node.js/02%20-%20Sample%20socket.io%20application)
 #### MicroServices
 01. [Microservices with eventual consistency (Spring boot + kafka)](https://github.com/randilfernando/samples/tree/master/MicroServices/01%20-%20Microservices%20with%20eventual%20consistency%20(Spring%20boot%20%2B%20kafka))
-02. [MIcroservices with Spring cloud streams and Confluent (kafka + avro)]()
+02. [MIcroservices with Spring cloud streams and Confluent (kafka + avro)](https://github.com/randilfernando/samples/tree/master/MicroServices/02%20-%20MIcroservices%20with%20Spring%20cloud%20streams%20and%20Confluent%20(kafka%20%2B%20avro))
