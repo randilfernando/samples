@@ -2,7 +2,7 @@ spring:
   cloud:
     stream:
       bindings:
-        input:
+        orders-in:
           destination: order-topic
       schemaRegistryClient:
         endpoint: http://localhost:8081

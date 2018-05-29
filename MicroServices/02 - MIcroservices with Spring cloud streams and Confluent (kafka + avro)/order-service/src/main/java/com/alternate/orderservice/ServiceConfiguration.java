@@ -8,6 +8,12 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ServiceConfiguration {
+
+    /**
+     * Bind confluent schema registry client and configure AutoWired
+     * @param endpoint schema registry location
+     * @return configured confluent schema registry client
+     */
     @Bean
     public SchemaRegistryClient schemaRegistryClient(@Value("${spring.cloud.stream.schemaRegistryClient.endpoint}") String endpoint){
         ConfluentSchemaRegistryClient client = new ConfluentSchemaRegistryClient();
