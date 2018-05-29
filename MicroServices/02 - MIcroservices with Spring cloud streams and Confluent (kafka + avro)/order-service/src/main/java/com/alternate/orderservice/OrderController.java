@@ -14,16 +14,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("orders")
 public class OrderController {
 
-    private Source source;
+    private MessageChannels messageChannels;
 
     @Autowired
-    public OrderController(Source source) {
-        this.source = source;
+    public OrderController(MessageChannels messageChannels) {
+        this.messageChannels = messageChannels;
     }
 
     @PostMapping
     public ResponseEntity<?> produce(@RequestBody Order order){
-        source.output().send(MessageBuilder.withPayload(order).build());
+        /*
+          Send java object via message channel
+          Object is serialized into avro stream
+         */
+        messageChannels.ordersOut().send(MessageBuilder.withPayload(order).build());
         return ResponseEntity.ok().build();
     }
 }
