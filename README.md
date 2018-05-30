@@ -1,7 +1,8 @@
 # Samples
-Collection of sample projects. And documentation on how to getting started with them.
+This repository contains getting started guides with sample projects to kickstart your learnings. Getting started guides with hello world examples are familiar but finding a sample which is according to a real-world example is relatively hard.  
+>Note: Feel free to submit issues or to contribute in order to enhance or to maintain the quality.
 
-Samples available
+Sample projects available
 =====================================================================================
 
 #### Angular
