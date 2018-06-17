@@ -24,3 +24,4 @@ Sample projects available
 #### MicroServices
 01. [Microservices with eventual consistency (Spring boot + kafka)](https://github.com/randilfernando/samples/tree/master/MicroServices/01%20-%20Microservices%20with%20eventual%20consistency%20(Spring%20boot%20%2B%20kafka))
 02. [MIcroservices with Spring cloud streams and Confluent (kafka + avro)](https://github.com/randilfernando/samples/tree/master/MicroServices/02%20-%20MIcroservices%20with%20Spring%20cloud%20streams%20and%20Confluent%20(kafka%20%2B%20avro))
+03. [Microservices with Spring web-sockets and Redis message broker](https://github.com/randilfernando/samples/tree/master/MicroServices/03%20-%20Microservices%20with%20spring%20web-sockets%20%2B%20Redis%20message%20broker)
