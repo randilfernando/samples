@@ -1,0 +1,27 @@
+version: "3"
+services:
+  app:
+    build: ./websocket-client
+    ports:
+        - "4200:80"
+  server:
+    build: ./websocket-server
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+    links:
+      - redis
+  redis:
+    image: redis:alpine
+    networks:
+      - backend
+  publisher:
+    build: ./redis-publisher
+    networks:
+      - backend
+    links:
+      - redis
+networks:
+  backend:
+    driver: bridge
