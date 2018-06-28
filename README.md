@@ -22,6 +22,8 @@ Sample projects available
 01. [Sample RESTAPI application](https://github.com/randilfernando/samples/tree/master/Node.js/01%20-%20Sample%20RESTAPI%20application)
 02. [Sample socket.io application](https://github.com/randilfernando/samples/tree/master/Node.js/02%20-%20Sample%20socket.io%20application)
 03. [Sample node.js server with sessions and pug templating](https://github.com/randilfernando/samples/tree/master/Node.js/03%20-%20Sample%20session%20based%20server%20with%20pug%20templating)
+#### Event Sourcing
+01. [Basic event sourcing with event replaying](https://github.com/randilfernando/samples/tree/master/Event%20Sourcing/01%20-%20Basic%20event%20sourcing%20event%20replaying)
 #### MicroServices
 01. [Microservices with eventual consistency (Spring boot + kafka)](https://github.com/randilfernando/samples/tree/master/MicroServices/01%20-%20Microservices%20with%20eventual%20consistency%20(Spring%20boot%20%2B%20kafka))
 02. [MIcroservices with Spring cloud streams and Confluent (kafka + avro)](https://github.com/randilfernando/samples/tree/master/MicroServices/02%20-%20MIcroservices%20with%20Spring%20cloud%20streams%20and%20Confluent%20(kafka%20%2B%20avro))
