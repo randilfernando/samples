@@ -11,12 +11,20 @@ const loginPage = (req, res) => {
 
 const register = async (req, res) => {
     delete req.body.id;
+    /**
+     * @description build will create a model instance without saving if you want to directly save use User.create()
+     * here we want to execute instance methods before saving to the database
+     */
     const user = User.build(req.body);
-    user.hashPassword();
+    user.hashPassword(); // call instance method this will simply hash the password and replace it with the actual value
     await user.save();
     res.redirect('/users/login');
 };
 
+/**
+ * @description passport.js is a authentication middleware see passport.config.js for passport configurations
+ * this will create a new user session and serialize session to the session store
+ */
 const login = passport.authenticate('local', {
     successRedirect: '/dashboard',
     failureRedirect: '/users/login',
@@ -24,7 +32,7 @@ const login = passport.authenticate('local', {
 });
 
 const logout = (req, res) => {
-    req.logout();
+    req.logout(); // wrapper method provided by passport.js
     res.redirect('/users/login');
 };
 

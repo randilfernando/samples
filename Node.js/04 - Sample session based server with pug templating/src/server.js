@@ -1,3 +1,7 @@
+/**
+ * @description run configuration at the beginning because some files may depend on these configs
+ * (eg: Model.get() will depend on Model.init())
+ */
 require('./config/db.config');
 require('./config/passport.config');
 
@@ -22,22 +26,22 @@ const options = {
 
 const app = express();
 
-app.set('view engine', 'pug');
-app.set('views', './src/views');
+app.set('view engine', 'pug'); // set view engine
+app.set('views', './src/views'); // set view base location
 
-app.use(cookieParser());
+app.use(cookieParser()); // use cookies because we want to enable session support
 app.use(bodyParser.urlencoded({
     extended: false
-}));
+})); // here we are submitting information using forms. this will parse inputs and add those details to req.body
 app.use(expressSession({
     secret: 'ABcd12!@',
     resave: false,
     saveUninitialized: false,
-    store: new SessionStore(options)
+    store: new SessionStore(options) // use mysql session store to store sessions (default session store is an in memory one)
 }));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
+app.use(passport.initialize()); // initialize passport middleware throughout our application
+app.use(passport.session()); // initialize passport sessions (passport.session() depend on expressSession())
+app.use(flash()); // use flash messages
 
 app.use('/users', usersRouter);
 app.use('/dashboard', dashboardRouter);

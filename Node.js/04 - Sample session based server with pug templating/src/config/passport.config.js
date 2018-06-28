@@ -2,6 +2,10 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user.model').get();
 
+/**
+ * @description this code is copied from local authentication section in passport.js documentation
+ * there are multiple auth methods supported by passport.js (google, facebook, twitter)
+ */
 passport.use(new LocalStrategy({
         usernameField: 'username',
         passwordField: 'password'
@@ -24,6 +28,10 @@ passport.use(new LocalStrategy({
     }
 ));
 
+/**
+ * @description serialize session
+ * after successful login user id will save to the session store with the session id
+ */
 passport.serializeUser((user, done) => {
     if (user) {
         done(null, user.id);
@@ -32,6 +40,10 @@ passport.serializeUser((user, done) => {
     }
 });
 
+/**
+ * @description at every request after the login this will find a relevant user with the user id
+ * and append that user as req.user
+ */
 passport.deserializeUser((id, done) => {
     User.findById(id).then(user => {
         if (user) {
