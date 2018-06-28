@@ -1,0 +1,12 @@
+extends ./layout/layout
+
+block content
+    .container.pt-5
+        form(method='POST' action='/users/login').col-4.offset-4
+            .form-group
+                label(for='username') Username
+                input#username.form-control(name='username' type='text' placeholder='Enter your username here')
+            .form-group
+                label(for='password') Password
+                input#password.form-control(name='password' type='password' placeholder='Enter your password here')
+            button.btn.btn-primary(type='submit') Login
