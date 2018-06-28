@@ -11,6 +11,6 @@ const sequelize = new Sequelize(
     }
 );
 
-require('./user.model').init(sequelize);
+require('../models/user.model').init(sequelize);
 
 sequelize.sync();

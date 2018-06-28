@@ -1,27 +1,37 @@
 const User = require('../models/user.model').get();
+const passport = require('passport');
 
-const addUserPage = (req, res) => {
-    res.render('user', {action: '/user/add'})
+const registerPage = (req, res) => {
+    res.render('register', {title: 'Register'})
 };
 
-const addUser = async (req, res) => {
+const loginPage = (req, res) => {
+    res.render('login', {title: 'Login'})
+};
+
+const register = async (req, res) => {
     delete req.body.id;
-    const user = await User.create(req.body, {isNewRecord: true});
-    res.redirect(`/user/get?id=${user.id}`);
+    const user = User.build(req.body);
+    user.hashPassword();
+    await user.save();
+    res.redirect('/users/login');
 };
 
-const getUser = async (req, res) => {
-    const user = await User.findById(req.query.id);
+const login = passport.authenticate('local', {
+    successRedirect: '/dashboard',
+    failureRedirect: '/users/login',
+    failureFlash: true
+});
 
-    if (user) {
-        res.render('user', {user: user});
-    } else {
-        res.render('error-404');
-    }
+const logout = (req, res) => {
+    req.logout();
+    res.redirect('/users/login');
 };
 
 module.exports = {
-    getUser: getUser,
-    addUserPage: addUserPage,
-    addUser: addUser
+    registerPage: registerPage,
+    loginPage: loginPage,
+    register: register,
+    login: login,
+    logout: logout
 };

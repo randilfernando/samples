@@ -1,0 +1,8 @@
+extends ./layout/layout
+
+block content
+    .container
+        .jumbotron
+            h1.display-4= `Hello ${user.username}`
+            a.btn.btn-primary.btn-lg(href='/users/logout', role='button') Logout
+
