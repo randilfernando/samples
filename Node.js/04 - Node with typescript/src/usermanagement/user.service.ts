@@ -1,19 +1,13 @@
-import {createConnection} from 'typeorm';
-import {logger} from '../common/logger';
+import {getCustomRepository, getManager} from 'typeorm';
 import UserEntity from '../entities/user.entity';
+import UserRepository from './user.repository';
 
 export default class UserService {
 
     private userRepository;
 
     constructor() {
-        createConnection()
-            .then(async (connection) => {
-                this.userRepository = connection.getRepository(UserEntity);
-            })
-            .catch((err) => {
-                logger.error('error when getting repository');
-            });
+        this.userRepository = getManager().getCustomRepository(UserRepository);
     }
 
     public async getUsers(): Promise<UserEntity[]> {
