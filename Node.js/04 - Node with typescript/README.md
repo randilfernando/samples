@@ -6,8 +6,8 @@
 This project use a similar folder structure which you can see in frameworks like [spring](https://spring.io/)  
 1. entities - all the database entities and their mappings
 2. every module contains controllers and services
-3. controllers use service methods to execute logic and containers only contain request and response mappings
-4. services use repositories provided by the ORM
+3. controllers use service methods to execute logic and controllers only contain request and response mappings
+4. services use repositories provided by the ORM (also we can extend repositories and create custom repositories)
 5. [typeorm](http://typeorm.io/#/) provides a convenient way of using annotations to initialize database mappings
 
 ## How to run

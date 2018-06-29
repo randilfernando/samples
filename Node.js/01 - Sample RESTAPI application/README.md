@@ -11,5 +11,5 @@ Run ```npm install``` to install all the dependencies.
 Now run ```npm run start``` or ```node app.js``` to start the application.   
 Console message shoud display that the server started successfully and goto [http://localhost:3000/movies](http://localhost:3000/movies) to access the server.  
 
-To understand the implementation please refer source files (files are when documented)
+To understand the implementation please refer source files (files are well documented)
 > Hint: use app.js as the starting point
