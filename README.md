@@ -22,6 +22,7 @@ Sample projects available
 01. [Sample RESTAPI application](https://github.com/randilfernando/samples/tree/master/Node.js/01%20-%20Sample%20RESTAPI%20application)
 02. [Sample socket.io application](https://github.com/randilfernando/samples/tree/master/Node.js/02%20-%20Sample%20socket.io%20application)
 03. [Sample node.js server with sessions and pug templating](https://github.com/randilfernando/samples/tree/master/Node.js/03%20-%20Sample%20session%20based%20server%20with%20pug%20templating)
+04. [Node.js with typescript](https://github.com/randilfernando/samples/master/Node.js/04%20-%20Node%20with%20typescript)
 #### Event Sourcing
 01. [Basic event sourcing with event replaying](https://github.com/randilfernando/samples/tree/master/Event%20Sourcing/01%20-%20Basic%20event%20sourcing%20event%20replaying)
 #### MicroServices

@@ -1,0 +1,29 @@
+{
+  "name": "sample",
+  "version": "0.0.1",
+  "description": "sample node.js application with typescript support",
+  "main": "index.js",
+  "scripts": {
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "lint:fix": "tslint --fix -c tslint.json 'src/**/*.ts'",
+    "start": "ts-node src/index.ts"
+  },
+  "author": "randilfernando <randil.fernando@outlook.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mysql2": "^1.5.3",
+    "reflect-metadata": "^0.1.12",
+    "typeorm": "^0.2.7",
+    "winston": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.16.0",
+    "@types/mocha": "^5.2.3",
+    "@types/node": "^10.3.5",
+    "ts-node": "^7.0.0",
+    "tslint": "^5.10.0",
+    "typescript": "^2.9.2"
+  }
+}
