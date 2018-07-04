@@ -2,8 +2,12 @@ import sys
 import time
 from chirp import ChirpConnect, CallbackSet, CHIRP_CONNECT_STATE
 
-app_key = "c506a55Fae19Ec5cE05c9AB4B"
-app_secret = "c4381ef75eB9ac1Efb22AA5EcDd609a2E972e41CefDe6faBE3"
+app_key = "8aFfE9c960cBDB01FFE373053"
+app_secret = "f2a0E9f5582Fc46DB9E6d713e22BF4b391f87BdfadbFe28a57"
+
+# alternate key and secret
+# app_key = "c506a55Fae19Ec5cE05c9AB4B"
+# app_secret = "c4381ef75eB9ac1Efb22AA5EcDd609a2E972e41CefDe6faBE3"
 
 sdk = ChirpConnect(app_key, app_secret)
 
