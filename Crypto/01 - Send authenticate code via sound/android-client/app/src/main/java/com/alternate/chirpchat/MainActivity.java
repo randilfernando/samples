@@ -1,4 +1,4 @@
-package io.chirp.connectdemoapp;
+package com.alternate.chirpchat;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -13,8 +13,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.BufferedInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.InputStream;
+import java.security.InvalidKeyException;
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 import io.chirp.connect.ChirpConnect;
 import io.chirp.connect.interfaces.ConnectEventListener;
@@ -121,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
 		         */
                 String s = null;
                 if (data != null) {
-                    s = new String(data);
+                    s = new String(decryptMessage(data));
                 }
 
                 Log.v("chirp-client", "ConnectCallback: onReceived: " + s);
@@ -261,11 +276,87 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        ChirpError error = chirpConnect.send(payload);
+        ChirpError error = chirpConnect.send(encryptMessage(payload));
 
         if (error.getCode() > 0) {
             Log.e("ConnectError: ", error.getMessage());
         }
+    }
+
+    private byte[] encryptMessage(byte[] plaintext) {
+        InputStream fileInputStream = getResources().openRawResource(R.raw.public_key);
+        byte[] publicKeyFileBytes = new byte[128];
+        try {
+            BufferedInputStream buf = new BufferedInputStream(fileInputStream);
+            buf.read(publicKeyFileBytes, 0, publicKeyFileBytes.length);
+            buf.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        X509EncodedKeySpec publicSpec = new X509EncodedKeySpec(publicKeyFileBytes);
+        byte[] encryptedString = null;
+        try {
+            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+            PublicKey publicKey = keyFactory.generatePublic(publicSpec);
+            Cipher cipher = Cipher.getInstance("RSA");
+            cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+            encryptedString = cipher.doFinal(plaintext);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        }
+
+        return encryptedString;
+    }
+
+    private byte[] decryptMessage(byte[] encryptedString) {
+        InputStream fileInputStream = getResources().openRawResource(R.raw.private_key);
+        byte[] privateKeyFileBytes = new byte[128];
+        try {
+            BufferedInputStream buf = new BufferedInputStream(fileInputStream);
+            buf.read(privateKeyFileBytes, 0, privateKeyFileBytes.length);
+            buf.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        PKCS8EncodedKeySpec privateSpec = new PKCS8EncodedKeySpec(privateKeyFileBytes);
+        byte[] decryptedString = null;
+        try {
+            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+            PrivateKey privateKey = keyFactory.generatePrivate(privateSpec);
+            Cipher cipher = Cipher.getInstance("RSA");
+            cipher.init(Cipher.DECRYPT_MODE, privateKey);
+            decryptedString = cipher.doFinal(encryptedString);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        }
+
+        return decryptedString;
     }
 
 }

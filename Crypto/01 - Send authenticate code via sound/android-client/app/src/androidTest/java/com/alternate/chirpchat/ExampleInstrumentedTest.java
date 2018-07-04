@@ -1,4 +1,4 @@
-package io.chirp.connectdemoapp;
+package com.alternate.chirpchat;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

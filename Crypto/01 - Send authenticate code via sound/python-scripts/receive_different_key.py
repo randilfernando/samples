@@ -37,7 +37,7 @@ def main():
     try:
         # Process audio streams
         while True:
-            time.sleep(0.1)
+            time.sleep(0.5)
             sys.stdout.flush()
     except KeyboardInterrupt:
         print('Exiting')

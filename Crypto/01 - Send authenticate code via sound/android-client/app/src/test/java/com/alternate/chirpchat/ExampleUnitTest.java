@@ -1,4 +1,4 @@
-package io.chirp.connectdemoapp;
+package com.alternate.chirpchat;
 
 import org.junit.Test;
 
