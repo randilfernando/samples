@@ -36,9 +36,9 @@ class MyCallbacks(CallbackSet):
             print('Received: ' + message)
             
             if authenticate(message):
-                sdk.send(sdk.new_payload(str.encode("Auth success")))
+                sdk.send(sdk.new_payload(str.encode("Success")))
             else:
-                sdk.send(sdk.new_payload(str.encode("Auth failed")))
+                sdk.send(sdk.new_payload(str.encode("Failed")))
 
     def on_sending(self, payload):
         """ Called when a chirp has started to be transmitted """
