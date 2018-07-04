@@ -28,6 +28,14 @@
             android:textColor="@color/colorPrimary"
             android:textSize="30sp" />
 
+        <CheckBox
+            android:id="@+id/checkEncrypt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Encrypt data"
+            android:textColor="@color/colorPrimary" />
+
         <Button
             android:id="@+id/btnSend"
             android:layout_width="match_parent"

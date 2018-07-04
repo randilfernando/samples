@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.io.BufferedInputStream;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView txtPassword;
     TextView txtFromServer;
+    CheckBox checkEncrypt;
     Button btnSend;
 
     @Override
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         txtPassword = findViewById(R.id.txtPassword);
         txtFromServer = findViewById(R.id.txtFromServer);
+        checkEncrypt = findViewById(R.id.checkEncrypt);
         btnSend = findViewById(R.id.btnSend);
 
         txtPassword.setEnabled(false);
@@ -98,11 +101,7 @@ public class MainActivity extends AppCompatActivity {
                   onSending is called when a send event begins.
 		          The data argument contains the payload being sent.
 		         */
-                String s = "null";
-                if (data != null) {
-                    s = new String(data);
-                }
-                Log.v("chirp-client", "ConnectCallback: onSending: " + s);
+                Log.v("chirp-client", "ConnectCallback: onSending");
             }
 
             @Override
@@ -134,19 +133,23 @@ public class MainActivity extends AppCompatActivity {
 		          If the payload was decoded successfully, it is passed in data.
 		          Otherwise, data is null.
 		         */
-                String s = null;
+                String message = null;
                 if (data != null) {
-                    s = new String(decryptMessage(data));
+                    message = new String(data);
                 }
 
-                Log.v("chirp-client", "ConnectCallback: onReceived: " + s);
-
-                if (s == null) {
+                if (message == null) {
                     Log.e("MessageCastingError: ", "String is null");
                     return;
                 }
 
-                updateTxtFromServer(s);
+                Log.v("chirp-client", "ConnectCallback: onReceived: " + message);
+                updateTxtFromServer(message);
+
+                if (checkEncrypt.isChecked()) {
+                    String decrypted = new String(decryptMessage(data));
+                    updateTxtFromServer(decrypted);
+                }
             }
 
             @Override
@@ -276,7 +279,13 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        ChirpError error = chirpConnect.send(encryptMessage(payload));
+        ChirpError error;
+
+        if (checkEncrypt.isChecked()) {
+            error = chirpConnect.send(encryptMessage(payload));
+        } else {
+            error = chirpConnect.send(payload);
+        }
 
         if (error.getCode() > 0) {
             Log.e("ConnectError: ", error.getMessage());
