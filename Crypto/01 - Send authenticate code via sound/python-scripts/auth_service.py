@@ -2,7 +2,9 @@ import sys
 import time
 from chirp import ChirpConnect, CallbackSet, CHIRP_CONNECT_STATE
 from Crypto.PublicKey import RSA
-import zlib
+from Crypto.Cipher import PKCS1_v1_5
+from Crypto.Hash import SHA
+from Crypto import Random
 
 app_key = "8aFfE9c960cBDB01FFE373053"
 app_secret = "f2a0E9f5582Fc46DB9E6d713e22BF4b391f87BdfadbFe28a57"
@@ -30,16 +32,13 @@ class MyCallbacks(CallbackSet):
         if len(payload) == 0:
             print('Decode failed!')
         else:
-            passcode = bytearray.fromhex(str(payload)).decode('latin-1')
-            print('Received: ' + passcode)
-            payload
-
-            if authenticate(passcode):
-                payload = sdk.new_payload(str.encode("Auth success"))
-            else:
-                payload = sdk.new_payload(str.encode("Auth failed"))
+            message = bytearray.fromhex(str(payload)).decode('latin-1')
+            print('Received: ' + message)
             
-            sdk.send(payload)
+            if authenticate(message):
+                sdk.send(sdk.new_payload(str.encode("Auth success")))
+            else:
+                sdk.send(sdk.new_payload(str.encode("Auth failed")))
 
     def on_sending(self, payload):
         """ Called when a chirp has started to be transmitted """
@@ -64,6 +63,13 @@ def main():
 
     sdk.stop()
     sdk.close()
+
+# def decrypt(encrypted):
+#     key = RSA.importKey(open('private_key.pem').read())
+#     dsize = SHA.digest_size
+#     sentinel = Random.new().read(15+dsize)
+#     cipher = PKCS1_v1_5.new(key)
+#     return cipher.decrypt(encrypted, sentinel)
 
 def authenticate(passcode):
     if passcode == global_passcode:

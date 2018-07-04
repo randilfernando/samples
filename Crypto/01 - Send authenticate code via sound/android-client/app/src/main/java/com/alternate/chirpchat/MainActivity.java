@@ -294,7 +294,7 @@ public class MainActivity extends AppCompatActivity {
 
     private byte[] encryptMessage(byte[] plaintext) {
         InputStream fileInputStream = getResources().openRawResource(R.raw.public_key);
-        byte[] publicKeyFileBytes = new byte[128];
+        byte[] publicKeyFileBytes = new byte[256];
         try {
             BufferedInputStream buf = new BufferedInputStream(fileInputStream);
             buf.read(publicKeyFileBytes, 0, publicKeyFileBytes.length);
@@ -332,7 +332,7 @@ public class MainActivity extends AppCompatActivity {
 
     private byte[] decryptMessage(byte[] encryptedString) {
         InputStream fileInputStream = getResources().openRawResource(R.raw.private_key);
-        byte[] privateKeyFileBytes = new byte[128];
+        byte[] privateKeyFileBytes = new byte[256];
         try {
             BufferedInputStream buf = new BufferedInputStream(fileInputStream);
             buf.read(privateKeyFileBytes, 0, privateKeyFileBytes.length);
