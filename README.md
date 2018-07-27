@@ -32,3 +32,4 @@ Sample projects available
 03. [Microservices with Spring web-sockets and Redis message broker](https://github.com/randilfernando/samples/tree/master/MicroServices/03%20-%20Microservices%20with%20spring%20web-sockets%20%2B%20Redis%20message%20broker)
 #### Netty
 01. [Simple WebSocket server with netty framework](https://github.com/randilfernando/samples/tree/master/Netty/01%20-%20Simple%20websocket%20server%20with%20netty%20(message%20receive%20and%20broadcast))
+02. [Simple HTTP server with Netty framework](https://github.com/randilfernando/samples/tree/master/Netty/02%20-%20Simple%20HTTP%20server%20with%20Netty%20framework)
