@@ -23,8 +23,6 @@ public class WebSocketServer extends Thread {
     private EventLoopGroup bossGroup;
     private EventLoopGroup workerGroup;
 
-    private Channel ch;
-
     public WebSocketServer(int port, EventLoopGroup bossGroup, EventLoopGroup workerGroup) {
         this.port = port;
         this.bossGroup = bossGroup;
@@ -50,19 +48,18 @@ public class WebSocketServer extends Thread {
             // Wait until the server socket is closed.
             // In this example, this does not happen, but you can do that to gracefully
             // shut down your server.
-            ch = f.channel();
-            ch.closeFuture().sync();
+            f.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             LOGGER.error("Exception when syncing threads {}", e);
         } finally {
-            LOGGER.info("Shutdown event loop groups");
-            bossGroup.shutdownGracefully();
-            workerGroup.shutdownGracefully();
+            shutdown();
         }
     }
 
     public void shutdown() {
-        ch.close();
+        LOGGER.info("Shutdown event loop groups");
+        bossGroup.shutdownGracefully();
+        workerGroup.shutdownGracefully();
     }
 
     public void broadcastMessage(String message) {
