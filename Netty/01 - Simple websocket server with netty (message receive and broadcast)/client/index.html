@@ -1,0 +1,45 @@
+<html>
+<head>
+    <title>Sample SebSocket Client</title>
+</head>
+<body>
+    <div id="htmlConsole" style="height: 500px; overflow-y: scroll"></div>
+    <script src="https://cdn.jsdelivr.net/gh/juztcode/console-to-html@0.0.1/src/console-to-html.js"></script>
+    <script>
+        new DebugToHTML('htmlConsole');
+    </script>
+    <script>
+        var ws;
+
+        connect = function () {
+            console.log("Connecting to websocket");
+            ws = new WebSocket("ws://localhost:4000");
+
+            ws.onopen = function () {
+                console.log("Connected to websocket");
+            };
+
+            ws.onmessage = function (ev) {
+                console.log("Frame received: " + ev.data);
+            };
+
+            ws.onclose = function (ev) {
+                switch (ev.code){
+                    case 1000:
+                        console.warn("Websocket closed");
+                        break;
+                    default:
+                        setTimeout(2000, connect());
+                }
+            };
+
+            ws.onerror = function (e) {
+                console.error("Error connecting to websocket: ", e);
+            };
+        };
+
+        connect();
+
+    </script>
+</body>
+</html>
