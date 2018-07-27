@@ -4,23 +4,23 @@
 </head>
 <body>
     <div id="htmlConsole" style="height: 500px; overflow-y: scroll"></div>
-    <script src="https://cdn.jsdelivr.net/gh/juztcode/console-to-html@0.0.1/src/console-to-html.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/juztcode/console-to-html@0.0.2/src/console-to-html.js"></script>
     <script>
         new DebugToHTML('htmlConsole');
     </script>
     <script>
-        var ws;
+        let ws;
 
         connect = function () {
-            console.log("Connecting to websocket");
+            console.info("Connecting to websocket");
             ws = new WebSocket("ws://localhost:4000");
 
             ws.onopen = function () {
-                console.log("Connected to websocket");
+                console.info("Connected to websocket");
             };
 
             ws.onmessage = function (ev) {
-                console.log("Frame received: " + ev.data);
+                console.info("Frame received: " + ev.data);
             };
 
             ws.onclose = function (ev) {
