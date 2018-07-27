@@ -1,0 +1,10 @@
+zuul:
+  routes:
+    web-server-1:
+      path: /web-server-1/**
+      url: http://localhost:8081
+    web-server-2:
+      path: /web-server-2/**
+      url: http://localhost:8082
+server:
+  port: 8080
