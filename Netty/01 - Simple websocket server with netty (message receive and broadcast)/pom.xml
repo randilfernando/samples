@@ -15,7 +15,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <netty.version>4.1.27.Final</netty.version>
-        <commons.version>3.7</commons.version>
         <slf4j.version>1.8.0-beta2</slf4j.version>
     </properties>
 
