@@ -4,6 +4,38 @@
     Checkout
 @endsection
 
+@section('scripts')
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script type="text/javascript">
+        Stripe.setPublishableKey('pk_test_6EZwVGVbs8W1nT6KSfurin7D');
+
+        Stripe.card.createToken({
+            number: $('.card-number').val(),
+            cvc: $('.card-cvc').val(),
+            exp_month: $('.card-month').val(),
+            exp_year: $('.card-year').val()
+        }, stripeResponseHandler);
+
+        function stripeResponseHandler(status, response) {
+            // Grab the form:
+            const $form = $('#payment-form');
+
+            if (response.error) {
+                // Show the errors on the form
+                $form.find('.payment-errors').text(response.error.message);
+                $form.find('button').prop('disabled', false); // Re-enable submission
+            } else {
+                // Get the token ID:
+                const token = response.id;
+                // Insert the token into the form so it gets submitted to the server:
+                $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+                // Submit the form:
+                $form.get(0).submit();
+            }
+        }
+    </script>
+@endsection
+
 @section('content')
     <div class="row mt-5 mb-5">
         <div class="col-6 offset-3">
