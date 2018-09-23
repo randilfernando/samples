@@ -3,7 +3,7 @@ var express = require('express');
  * movie controller will act as a mediator between request and models
  * controllers will execute model functions and send results back to the client
  */
-var moviesController = require('./../controllers/moviesController');
+var moviesController = require('../controllers/movies-controller');
 
 /**
  * this will create a router object which we can use in app.use()
