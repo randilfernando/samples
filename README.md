@@ -18,6 +18,7 @@ Sample projects available
 01. [Microservices with eventual consistency (Spring boot + kafka)](https://github.com/randilfernando/samples/tree/master/MicroServices/01%20-%20Microservices%20with%20eventual%20consistency%20(Spring%20boot%20%2B%20kafka))
 02. [MIcroservices with Spring cloud streams and Confluent (kafka + avro)](https://github.com/randilfernando/samples/tree/master/MicroServices/02%20-%20MIcroservices%20with%20Spring%20cloud%20streams%20and%20Confluent%20(kafka%20%2B%20avro))
 03. [Microservices with Spring web-sockets and Redis message broker](https://github.com/randilfernando/samples/tree/master/MicroServices/03%20-%20Microservices%20with%20spring%20web-sockets%20%2B%20Redis%20message%20broker)
+04. [Distributed logging with elastic stack and kafka](https://github.com/randilfernando/samples/tree/master/MicroServices/04%20-%20Distributed%20logging%20with%20elastic%20stack%20and%20kafka)
 #### Netty
 01. [Simple WebSocket server with netty framework](https://github.com/randilfernando/samples/tree/master/Netty/01%20-%20Simple%20websocket%20server%20with%20netty%20(message%20receive%20and%20broadcast))
 02. [Simple HTTP server with Netty framework](https://github.com/randilfernando/samples/tree/master/Netty/02%20-%20Simple%20HTTP%20server%20with%20Netty%20framework)
