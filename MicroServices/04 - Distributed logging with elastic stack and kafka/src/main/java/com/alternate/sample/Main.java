@@ -17,7 +17,7 @@ public class Main {
         while (!"exit".equals(input)) {
             System.out.print("Enter log message: ");
             input = scanner.nextLine();
-            LOGGER.warn(input);
+            LOGGER.info(input);
         }
     }
 }
