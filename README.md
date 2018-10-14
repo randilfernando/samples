@@ -30,6 +30,8 @@ Sample projects available
 03. [Sample node.js server with sessions and pug templating](https://github.com/randilfernando/samples/tree/master/Node.js/03%20-%20Sample%20session%20based%20server%20with%20pug%20templating)
 04. [Node.js with typescript](https://github.com/randilfernando/samples/master/Node.js/04%20-%20Node%20with%20typescript)
 05. [Nest.js (A progressive Node.js framework)](https://github.com/randilfernando/samples/tree/master/Node.js/05%20-%20Nest.js%20(A%20progressive%20Node.js%20framework))
+#### Web RTC
+01. [Video chat using peerjs](https://github.com/randilfernando/samples/tree/master/Web%20RTC/01%20-%20Video%20chat%20using%20peerjs)
 #### Angular
 01. [Angular 1 with Angular 2](https://github.com/randilfernando/samples/tree/master/Angular/01%20-%20Angular%201%20with%20Angular%202)
 #### Electron
