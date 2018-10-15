@@ -11,6 +11,10 @@ def init_app(app):
 
 
 def init_db():
+    """
+    run schema.sql and create database inside instance folder
+    :return: none
+    """
     db = get_db()
 
     with current_app.open_resource('schema.sql') as f:
@@ -20,6 +24,11 @@ def init_db():
 
 
 def get_db():
+    """
+    return created database connection object
+    if not exist create new database connection object
+    :return: database
+    """
     if 'db' not in g:
         g.db = sqlite3.connect(
             current_app.config['DATABASE'],
@@ -40,6 +49,10 @@ def close_db(e=None):
 @click.command('init-db')
 @with_appcontext
 def init_db_command():
-    """Clear the existing data and create new tables."""
+    """
+    clear the existing data and create new tables
+    can trigger via the command line (flask init-db)
+    :return: none
+    """
     init_db()
     click.echo('Initialized the database.')

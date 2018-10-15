@@ -8,7 +8,7 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
+        DATABASE=os.path.join(app.instance_path, 'sample.sqlite'),
     )
 
     if test_config is None:
@@ -25,12 +25,15 @@ def create_app(test_config=None):
         pass
 
     from . import db
+    # bind db object with newly created flask application
     db.init_app(app)
 
     from . import error_handler
+    # bind error handler with newly created flask application
     error_handler.init_app(app)
 
     from . import auth
+    # bind blueprint with newly created flask application
     app.register_blueprint(auth.bp)
 
     return app
