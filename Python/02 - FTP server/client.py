@@ -1,35 +1,92 @@
 import os
 from ftplib import FTP, all_errors
 
+
 ftp = FTP('')
-ftp.connect('127.0.0.1', 1026)
-ftp.login()
+
+pwd = ""
+address = ""
+connected = False
+
+
+def get_prompt():
+    return "anonymous({0}):{1}$ ".format(address, pwd)
+
+
+def connect(arguments):
+    global address, connected
+
+    if connected:
+        disconnect()
+
+    ip = arguments[0]
+    port = int(arguments[1])
+    ftp.connect(ip, port)
+    ftp.login()
+
+    address = ip + ":" + str(port)
+    connected = True
+    print(get_prompt() + "connected")
+
+    go_to_dir("/")
+
+
+def disconnect():
+    global pwd, address, connected
+
+    if not connected:
+        return
+
+    ftp.quit()
+
+    address = ""
+    pwd = ""
+    connected = False
+    print(get_prompt() + "disconnected")
 
 
 def go_to_dir(arguments):
+    global pwd
+
+    if not connected:
+        return
+
     try:
         ftp.cwd(arguments[0])
+        pwd = ftp.pwd()
     except all_errors:
-        print("$anonymous ({0}): {1}".format(ftp.pwd(), "directory not found"))
+        print(get_prompt() + "invalid directory")
 
 
 def list_dir():
+    if not connected:
+        return
+
     ftp.retrlines('LIST')
 
 
 def upload_file(arguments):
+    if not connected:
+        return
+
     source = arguments[0]
     filename = os.path.basename(source)
     ftp.storbinary("STOR " + filename, open(source, 'rb'))
 
+    print(get_prompt() + "uploaded file {0}".format(source))
+
 
 def download_file(arguments):
+    if not connected:
+        return
+
     filename = arguments[0]
-    destination = arguments[1]
-    destination_file = os.path.join(destination, filename)
-    local_file = open(destination_file, 'wb')
+    destination = os.path.join(arguments[1], filename)
+    local_file = open(destination, 'wb')
     ftp.retrbinary("RETR " + filename, local_file.write, 1024)
     local_file.close()
+
+    print(get_prompt() + "downloaded file {0}".format(destination))
 
 
 def parse_command(s):
@@ -43,7 +100,11 @@ def parse_command(s):
     if command == "":
         return
 
-    if command == "cd":
+    if command == "con":
+        connect(arguments)
+    elif command == "dis":
+        disconnect()
+    elif command == "cd":
         go_to_dir(arguments)
     elif command == "ls":
         list_dir()
@@ -52,18 +113,16 @@ def parse_command(s):
     elif command == "down":
         download_file(arguments)
     else:
-        print("$anonymous ({0}): {1}".format(ftp.pwd(), "unknown command"))
+        print(get_prompt() + "invalid command")
 
 
 def main():
-    go_to_dir("/")
-
-    s = input("$anonymous (/): ")
+    s = input(get_prompt())
     while s != 'exit':
         parse_command(s)
-        s = input("$anonymous ({0}): ".format(ftp.pwd()))
+        s = input(get_prompt())
 
-    ftp.quit()
+    disconnect()
 
 
 if __name__ == "__main__":
