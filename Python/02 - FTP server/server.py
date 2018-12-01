@@ -13,8 +13,9 @@ def get_ip():
 
 
 def main():
+    directory = input("Enter directory: ")
     authorizer = DummyAuthorizer()
-    authorizer.add_anonymous("./ftp_directory")
+    authorizer.add_anonymous(directory)
 
     handler = FTPHandler
     handler.authorizer = authorizer
