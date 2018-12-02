@@ -1,7 +1,13 @@
+import glob
+import readline
 import socket
 from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
+
+
+def complete(text, state):
+    return (glob.glob(text + '*') + [None])[state]
 
 
 def get_ip():
@@ -13,6 +19,10 @@ def get_ip():
 
 
 def main():
+    readline.set_completer_delims(' \t\n;')
+    readline.parse_and_bind("tab: complete")
+    readline.set_completer(complete)
+
     directory = input("Enter directory: ")
     authorizer = DummyAuthorizer()
     authorizer.add_anonymous(directory)

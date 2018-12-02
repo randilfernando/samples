@@ -1,12 +1,18 @@
+import glob
 import os
 from ftplib import FTP, all_errors
 
+import readline
 
 ftp = FTP('')
 
 pwd = ""
 address = ""
 connected = False
+
+
+def complete(text, state):
+    return (glob.glob(text + '*') + [None])[state]
 
 
 def get_prompt():
@@ -70,6 +76,19 @@ def list_dir():
     ftp.retrlines('LIST')
 
 
+def view_dir():
+    if not connected:
+        print(get_prompt() + "please connect first")
+        return
+
+    print(pwd)
+
+
+def clear_console(command):
+    def clear(): os.system(command)
+    clear()
+
+
 def upload_file(arguments):
     if not connected:
         print(get_prompt() + "please connect first")
@@ -96,25 +115,45 @@ def download_file(arguments):
     print(get_prompt() + "downloaded file {0}".format(destination))
 
 
+def split_arguments(s):
+    parts_quote = s.split("'")
+    parts_final = []
+
+    for i in range(len(parts_quote)):
+        if i == "":
+            continue
+        elif i % 2 == 1:
+            parts_final.append(parts_quote[i])
+        else:
+            parts_final = parts_final + [x for x in parts_quote[i].split(" ") if not x == ""]
+
+    command = parts_final[0]
+
+    arguments = []
+    if len(parts_final) > 1:
+        arguments = parts_final[1:]
+
+    return command, arguments
+
+
 def parse_command(s):
     if s == "":
         return
 
-    parts = s.split(" ")
-    command = parts[0]
+    (command, arguments) = split_arguments(s)
 
-    arguments = []
-    if len(parts) > 1:
-        arguments = parts[1:]
-
-    if command == "con":
-        connect(arguments)
-    elif command == "dis":
-        disconnect()
+    if command == "cls" or command == "clear":
+        clear_console(command)
+    elif command == "pwd":
+        view_dir()
     elif command == "cd":
         go_to_dir(arguments)
     elif command == "ls":
         list_dir()
+    elif command == "con":
+        connect(arguments)
+    elif command == "dis":
+        disconnect()
     elif command == "up":
         upload_file(arguments)
     elif command == "down":
@@ -124,6 +163,10 @@ def parse_command(s):
 
 
 def main():
+    readline.set_completer_delims(' \t\n;')
+    readline.parse_and_bind("tab: complete")
+    readline.set_completer(complete)
+
     s = input(get_prompt())
     while s != 'exit':
         parse_command(s)
