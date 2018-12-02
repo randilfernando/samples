@@ -21,14 +21,17 @@ def connect(arguments):
 
     ip = arguments[0]
     port = int(arguments[1])
-    ftp.connect(ip, port)
-    ftp.login()
 
-    address = ip + ":" + str(port)
-    connected = True
-    print(get_prompt() + "connected")
+    try:
+        ftp.connect(ip, port)
+        ftp.login()
+        address = ip + ":" + str(port)
+        connected = True
+        print(get_prompt() + "connected")
 
-    go_to_dir("/")
+        go_to_dir("/")
+    except all_errors:
+        print(get_prompt() + "connection failed")
 
 
 def disconnect():
@@ -49,6 +52,7 @@ def go_to_dir(arguments):
     global pwd
 
     if not connected:
+        print(get_prompt() + "please connect first")
         return
 
     try:
@@ -60,6 +64,7 @@ def go_to_dir(arguments):
 
 def list_dir():
     if not connected:
+        print(get_prompt() + "please connect first")
         return
 
     ftp.retrlines('LIST')
@@ -67,6 +72,7 @@ def list_dir():
 
 def upload_file(arguments):
     if not connected:
+        print(get_prompt() + "please connect first")
         return
 
     source = arguments[0]
@@ -78,6 +84,7 @@ def upload_file(arguments):
 
 def download_file(arguments):
     if not connected:
+        print(get_prompt() + "please connect first")
         return
 
     filename = arguments[0]
@@ -90,15 +97,15 @@ def download_file(arguments):
 
 
 def parse_command(s):
+    if s == "":
+        return
+
     parts = s.split(" ")
     command = parts[0]
 
     arguments = []
     if len(parts) > 1:
         arguments = parts[1:]
-
-    if command == "":
-        return
 
     if command == "con":
         connect(arguments)
