@@ -1,6 +1,8 @@
 import glob
 import readline
 import socket
+import sys
+
 from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
@@ -23,7 +25,8 @@ def main():
     readline.parse_and_bind("tab: complete")
     readline.set_completer(complete)
 
-    directory = input("Enter directory: ")
+    directory = sys.argv[1]
+
     authorizer = DummyAuthorizer()
     authorizer.add_anonymous(directory)
 

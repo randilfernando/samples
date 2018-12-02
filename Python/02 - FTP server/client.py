@@ -1,13 +1,12 @@
 import glob
 import os
-from ftplib import FTP, all_errors
-
 import readline
+from ftplib import FTP, all_errors
 
 ftp = FTP('')
 
 pwd = ""
-address = ""
+address = "disconnected"
 connected = False
 
 
@@ -15,8 +14,8 @@ def complete(text, state):
     return (glob.glob(text + '*') + [None])[state]
 
 
-def get_prompt():
-    return "anonymous({0}):{1}$ ".format(address, pwd)
+def get_prompt(s):
+    return "{0}@anonymous:{1}$ {2}".format(address, pwd, s)
 
 
 def connect(arguments):
@@ -31,13 +30,13 @@ def connect(arguments):
     try:
         ftp.connect(ip, port)
         ftp.login()
-        address = ip + ":" + str(port)
+        address = ip
         connected = True
-        print(get_prompt() + "connected")
+        print(get_prompt("connected"))
 
         go_to_dir("/")
     except all_errors:
-        print(get_prompt() + "connection failed")
+        print(get_prompt("connection failed"))
 
 
 def disconnect():
@@ -48,29 +47,29 @@ def disconnect():
 
     ftp.quit()
 
-    address = ""
     pwd = ""
+    address = "disconnected"
     connected = False
-    print(get_prompt() + "disconnected")
+    print(get_prompt("disconnected"))
 
 
 def go_to_dir(arguments):
     global pwd
 
     if not connected:
-        print(get_prompt() + "please connect first")
+        print(get_prompt("please connect first"))
         return
 
     try:
         ftp.cwd(arguments[0])
         pwd = ftp.pwd()
     except all_errors:
-        print(get_prompt() + "invalid directory")
+        print(get_prompt("invalid directory"))
 
 
 def list_dir():
     if not connected:
-        print(get_prompt() + "please connect first")
+        print(get_prompt("please connect first"))
         return
 
     ftp.retrlines('LIST')
@@ -78,7 +77,7 @@ def list_dir():
 
 def view_dir():
     if not connected:
-        print(get_prompt() + "please connect first")
+        print(get_prompt("please connect first"))
         return
 
     print(pwd)
@@ -86,24 +85,25 @@ def view_dir():
 
 def clear_console(command):
     def clear(): os.system(command)
+
     clear()
 
 
 def upload_file(arguments):
     if not connected:
-        print(get_prompt() + "please connect first")
+        print(get_prompt("please connect first"))
         return
 
     source = arguments[0]
     filename = os.path.basename(source)
     ftp.storbinary("STOR " + filename, open(source, 'rb'))
 
-    print(get_prompt() + "uploaded file {0}".format(source))
+    print(get_prompt("uploaded file {0}".format(source)))
 
 
 def download_file(arguments):
     if not connected:
-        print(get_prompt() + "please connect first")
+        print(get_prompt("please connect first"))
         return
 
     filename = arguments[0]
@@ -112,7 +112,7 @@ def download_file(arguments):
     ftp.retrbinary("RETR " + filename, local_file.write, 1024)
     local_file.close()
 
-    print(get_prompt() + "downloaded file {0}".format(destination))
+    print(get_prompt("downloaded file {0}".format(destination)))
 
 
 def split_arguments(s):
@@ -159,7 +159,7 @@ def parse_command(s):
     elif command == "down":
         download_file(arguments)
     else:
-        print(get_prompt() + "invalid command")
+        print(get_prompt("invalid command"))
 
 
 def main():
@@ -167,10 +167,10 @@ def main():
     readline.parse_and_bind("tab: complete")
     readline.set_completer(complete)
 
-    s = input(get_prompt())
+    s = input(get_prompt(""))
     while s != 'exit':
         parse_command(s)
-        s = input(get_prompt())
+        s = input(get_prompt(""))
 
     disconnect()
 
