@@ -33,3 +33,6 @@ Sample projects available
 01. [Angular 1 with Angular 2](https://github.com/randilfernando/samples/tree/master/Angular/01%20-%20Angular%201%20with%20Angular%202)
 #### Electron
 01. [Sample electron app](https://github.com/randilfernando/samples/tree/master/Electron/01%20-%20Sample%20electron%20app)
+#### Python
+01. [API with flask](https://github.com/randilfernando/samples/tree/master/Python/01%20-%20API%20with%20flask/sample/auth.py)
+02. [FTP server](https://github.com/randilfernando/samples/tree/master/Python/02%20-%20FTP%20server)
