@@ -1,0 +1,12 @@
+<table style="width:100%">
+  <tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Age</th>
+  </tr>
+  <tr *ngFor="let employee of employees">
+    <td contenteditable="true" (keydown)="contentChange()">{{employee.firstName}}</td>
+    <td contenteditable="true">{{employee.lastName}}</td>
+    <td contenteditable="true">{{employee.age}}</td>
+  </tr>
+</table>
