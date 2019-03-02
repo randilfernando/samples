@@ -5,8 +5,51 @@
     <th>Age</th>
   </tr>
   <tr *ngFor="let employee of employees">
-    <td contenteditable="true" (keydown)="contentChange()">{{employee.firstName}}</td>
-    <td contenteditable="true">{{employee.lastName}}</td>
-    <td contenteditable="true">{{employee.age}}</td>
+    <td contenteditable="true" [textContent]="employee.firstName"
+        (input)="contentChange(employee, 'firstName', $event)"></td>
+    <td contenteditable="true" [textContent]="employee.lastName"
+        (input)="contentChange(employee, 'lastName', $event)"></td>
+    <td contenteditable="true" [textContent]="employee.age" (input)="contentChange(employee, 'age', $event)"></td>
   </tr>
 </table>
+
+<br>
+<br>
+
+<table>
+  <tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Age</th>
+  </tr>
+  <tr *ngFor="let employee of employees">
+    <td>
+      <label>
+        <input type="text" [(ngModel)]="employee.firstName">
+      </label>
+    </td>
+    <td>
+      <label>
+        <input type="text" [(ngModel)]="employee.lastName">
+      </label>
+    </td>
+    <td>
+      <label>
+        <input type="number" [(ngModel)]="employee.age">
+      </label>
+    </td>
+    <td>
+      <label>
+        <select [(ngModel)]="employee.gender">
+          <option value="M">Male</option>
+          <option value="F">Female</option>
+        </select>
+      </label>
+    </td>
+  </tr>
+</table>
+
+<br>
+<br>
+
+<button (click)="send()">Send</button>

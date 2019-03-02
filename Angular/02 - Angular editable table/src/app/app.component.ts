@@ -1,18 +1,29 @@
 import {Component} from '@angular/core';
 
+interface Employee {
+  firstName: string;
+  lastName: string;
+  age: number;
+  gender: string;
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  employees: { firstName: string, lastName: string, age: number }[] = [
-    {firstName: 'Randil', lastName: 'Fernando', age: 23},
-    {firstName: 'Wishwa', lastName: 'Wijerathna', age: 23},
-    {firstName: 'Lalindu', lastName: 'Rajapaksha', age: 21},
+  employees: Employee[] = [
+    {firstName: 'Randil', lastName: 'Fernando', age: 23, gender: 'M'},
+    {firstName: 'Wishwa', lastName: 'Wijerathna', age: 23, gender: 'M'},
+    {firstName: 'Lalindu', lastName: 'Rajapaksha', age: 21, gender: 'M'},
   ];
 
-  contentChange(employee: { firstName: string, lastName: string, age: number }, attribute: string, newValue: any) {
-    employee[attribute] = newValue;
+  contentChange(employee: Employee, attribute: string, event: any) {
+    employee[attribute] = event.target.textContent;
+  }
+
+  send() {
+    console.log(this.employees);
   }
 }
